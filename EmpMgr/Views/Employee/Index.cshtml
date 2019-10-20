@@ -1,0 +1,84 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<Employee>
+@inject UserManager<Employee> UserManager
+@{
+    ViewData["Title"] = "Lista radnika";
+}
+
+<h1>Lista radnika</h1>
+
+<hr />
+
+@if (Model != null)
+{
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                Ime
+            </th>
+            <th>
+                Prezime
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Starost
+            </th>
+            <th>
+                Admin
+            </th>
+            <th>
+                <a asp-action="Create" class="btn btn-outline-primary"><i class="far fa-plus-square"></i> Dodaj</a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @{
+            var today = DateTime.Today;
+            var age = today.Year - item.DateOfBirth.Year;
+            if (item.DateOfBirth > today.AddYears(-age))
+            {
+                age--;
+            }
+                    @Html.DisplayFor(model => age)
+                }
+            </td>
+            <td>
+                @{
+                    var isInAdminRole = await UserManager.IsInRoleAsync(item, "administrator").ConfigureAwait(false);
+
+                    @Html.Raw(isInAdminRole ? "<i class='fas fa-check-circle'></i>" : "<i class='fas fa-times'></i>")
+                }
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id"><i class="fa fa-pencil-alt mr-2"></i></a>
+                <a asp-action="DeleteEmployee" asp-route-id="@item.Id" class="text-danger ml-1" onclick="return confirm('Da li ste sigurni da želite ukloniti radnika?')"><i class="fa fa-trash-alt mr-2"></i></a>
+                @if (isInAdminRole)
+                    {
+                <a asp-action="DemoteToUser" asp-route-id="@item.Id"><i class="far fa-user mr-2"></i></a>
+                    }
+                    else
+                    {
+                <a asp-action="PromoteToAdmin" asp-route-id="@item.Id"><i class="fas fa-crown"></i></a>
+                    }
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+}

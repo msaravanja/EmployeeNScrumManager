@@ -1,0 +1,60 @@
+﻿@model EmpMgr.Models.DailyScrumModel
+
+@{
+    ViewData["Title"] = "Daily scrum detalji";
+}
+
+    <h2>Daily scrum detalji</h2>
+
+<div>
+    <h4>Informacije o unosu</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-4">
+            Datum
+        </dt>
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.ScrumDay)
+        </dd>
+        <dt class = "col-sm-4">
+            Todo danas
+        </dt>
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.TodoToday)
+        </dd>
+        <dt class = "col-sm-4">
+            Done jučer
+        </dt>
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.DoneYesterday)
+        </dd>
+        <dt class = "col-sm-4">
+            Prepreke
+        </dt>
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.Impediments)
+        </dd>
+        <dt class = "col-sm-4">
+            Nazočio sastanku
+        </dt>
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.AttendedDailyScrumMeeting)
+        </dd>
+        <dt class = "col-sm-4">
+            Dolazak na sastanak
+        </dt>
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.DailyScrumMeetingArrival)
+        </dd>
+        <dt class = "col-sm-4">
+            Radnik
+        </dt>
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.Employee.Email)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id"><i class="fas fa-edit"></i> Uredi</a> |
+    <a asp-action="Index"><i class="fas fa-backward"></i> Povratak na listu</a>
+</div>

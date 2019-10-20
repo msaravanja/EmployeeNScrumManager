@@ -1,0 +1,60 @@
+﻿
+@model EmpMgr.Models.DailyScrumModel
+
+@{
+    ViewData["Title"] = "Moj Daily Scrum";
+}
+
+<h2>Moj Daily Scrum</h2>
+
+@if (Model != null)
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>
+                Datum
+            </th>
+            <th>
+                Todo danas
+            </th>
+            <th>
+                Done jučer
+            </th>
+            <th>
+                Prepreke
+            </th>
+            <th>
+                Nazočio sastanku
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => Model.ScrumDay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.TodoToday)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.DoneYesterday)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Impediments)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.AttendedDailyScrumMeeting)
+            </td>
+        </tr>
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <p class="lead">Vaša tablica je za sada prazna :(</p>
+        </div>
+    </div>
+}

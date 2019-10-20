@@ -1,0 +1,57 @@
+-- add default roles
+INSERT INTO [dbo].[AspNetRoles] ([Id], [Name], [NormalizedName], [ConcurrencyStamp])
+     VALUES
+           ('A137E741-AF8C-41AE-9E6C-AB91231E0B7B', 'administrator', 'ADMINISTRATOR', NEWID()),
+           ('7295A428-2769-449B-9FA3-39E98AB1BA7E', 'employee', 'EMPLOYEE', NEWID())
+GO
+
+-- add admin user
+INSERT INTO [dbo].[AspNetUsers]
+           ([Id]
+           ,[UserName]
+           ,[NormalizedUserName]
+           ,[Email]
+           ,[NormalizedEmail]
+           ,[EmailConfirmed]
+           ,[PasswordHash]
+           ,[SecurityStamp]
+           ,[ConcurrencyStamp]
+           ,[PhoneNumber]
+           ,[PhoneNumberConfirmed]
+           ,[TwoFactorEnabled]
+           ,[LockoutEnd]
+           ,[LockoutEnabled]
+           ,[AccessFailedCount]
+           ,[Discriminator]
+           ,[FirstName]
+           ,[LastName]
+           ,[DateOfBirth])
+     VALUES
+           ('1399f3fa-7691-467a-9b16-ee6cb87e6757'
+           ,'admin@demo.com'
+           ,'ADMIN@DEMO.COM'
+           ,'admin@demo.com'
+           ,'ADMIN@DEMO.COM'
+           ,0
+           ,'AQAAAAEAACcQAAAAEC86LoT6PmWHOOnUscEF/mxh5jLcj3KcZkFRKZeJ0uHWhqMTWN5X5EiJcrN7aEaMgg=='
+           ,'KH6FOXWSQVZUXDPXH45QQ6OEIXDX7ANC'
+           ,'a5aa0a93-0cef-4420-a4f7-ab52c3b0f916'
+           ,NULL
+           ,0
+           ,0
+           ,NULL
+           ,1
+           ,0
+           ,'Employee'
+           ,'Admin'
+           ,'Demo'
+           ,'1990-02-11 00:00:00.0000000')
+GO
+
+-- assign admin user to admin role
+INSERT INTO [dbo].[AspNetUserRoles]
+           ([UserId]
+           ,[RoleId])
+     VALUES
+           ('1399f3fa-7691-467a-9b16-ee6cb87e6757', 'A137E741-AF8C-41AE-9E6C-AB91231E0B7B')
+GO

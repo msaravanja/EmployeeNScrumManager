@@ -1,0 +1,70 @@
+﻿@using System.Globalization
+@using System.Threading
+@model IEnumerable<EmpMgr.Models.DailyScrumModel>
+
+@{
+    ViewData["Title"] = "Daily scrum";
+}
+
+<h2>Daily scrum pregled za @DateTime.Today.ToShortDateString()</h2>
+
+<hr />
+
+<p>
+    <a asp-action="Create"><i class="fas fa-plus-circle"></i> Dodijeli radniku scrum</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Datum
+            </th>
+            <th>
+                Todo danas
+            </th>
+            <th>
+                Done jučer
+            </th>
+            <th>
+                Prepreke
+            </th>
+            <th>
+                Nazočio sastanku
+            </th>
+            <th>
+                Radnik
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ScrumDay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TodoToday)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DoneYesterday)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Impediments)
+                </td>
+                <td align="center">
+                    @Html.DisplayFor(modelItem => item.AttendedDailyScrumMeeting)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employee.Email)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-edit mr-1"></i></a>
+                    <a asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-info-circle mr-1"></i></a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="text-danger ml-1"><i class="fas fa-trash-alt"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

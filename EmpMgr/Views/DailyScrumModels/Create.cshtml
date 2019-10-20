@@ -1,0 +1,60 @@
+﻿@model EmpMgr.ViewModels.DailyScrumViewModel
+
+@{
+    ViewData["Title"] = "Dodaj daily scrum";
+}
+
+<h2>Dodijeli daily scrum radniku</h2>
+
+<h4>Polja za unos</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.TodoToday, "Todo danas", htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.TodoToday, new { htmlAttributes = new { @class = "form-control", @required = "required",  @autofocus = "autofocus" } })
+                    @Html.ValidationMessageFor(model => model.TodoToday, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.DoneYesterday, "Done jučer", htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.DoneYesterday, new { htmlAttributes = new { @class = "form-control", @required = "required"  } })
+                    @Html.ValidationMessageFor(model => model.DoneYesterday, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Impediments, "Prepreke", htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Impediments, new { htmlAttributes = new { @class = "form-control", @required = "required"  } })
+                    @Html.ValidationMessageFor(model => model.Impediments, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.DailyScrumMeetingArrival, "Dolazak na sastanak", htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.DailyScrumMeetingArrival, new { htmlAttributes = new { @class = "form-control", @required = "required" , @Value = Model.DailyScrumMeetingArrival.ToString("dd.MM.yyyy HH:mm") } })
+                    @Html.ValidationMessageFor(model => model.DailyScrumMeetingArrival, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => Model.EmployeeId, "Radnik", htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.DropDownListFor(x => Model.EmployeeId, new SelectList(Model.Employees, "Value", "Text"), htmlAttributes: new { @class = "form-control", id = "Employees", @required = "required" })
+                    @Html.ValidationMessageFor(x => Model.EmployeeId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Dodijeli" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index"><i class="fas fa-backward"></i> Povratak na listu</a>
+</div>
+
